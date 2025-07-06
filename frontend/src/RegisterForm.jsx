@@ -41,7 +41,10 @@ export default function RegisterForm({ onSwitchToLogin }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, form);
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
+        form
+      );
       setMessage(res.data.message || "Registered successfully! Please login.");
       setForm({ username: "", email: "", password: "" });
     } catch (err) {
@@ -57,7 +60,7 @@ export default function RegisterForm({ onSwitchToLogin }) {
         <Grid item xs={12} md={6}>
           <Box
             sx={{
-              height: "100%",
+              height: "100vh",
               backgroundImage: "url('https://source.unsplash.com/featured/?ship,port')",
               backgroundSize: "cover",
               backgroundPosition: "center",
@@ -66,7 +69,14 @@ export default function RegisterForm({ onSwitchToLogin }) {
         </Grid>
       )}
 
-      <Grid item xs={12} md={6} display="flex" alignItems="center" justifyContent="center">
+      <Grid
+        item
+        xs={12}
+        md={6}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -143,7 +153,11 @@ export default function RegisterForm({ onSwitchToLogin }) {
               disabled={loading}
               sx={{ borderRadius: 2, fontWeight: "bold" }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : "Register"}
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Register"
+              )}
             </Button>
 
             {message && <Alert severity="success">{message}</Alert>}
