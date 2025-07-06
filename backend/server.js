@@ -30,3 +30,8 @@ app.use('/api/voyages', voyageRoutes);
 app.listen(process.env.PORT || 5000, () => {
   console.log('Server is running...');
 });
+
+// Root Route
+app.get('/', (req, res) => {
+  res.send('Welcome to the Vessel Voyage Tracker API');
+});
