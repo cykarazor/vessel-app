@@ -11,6 +11,7 @@ import {
   IconButton,
   CircularProgress,
   Link,
+  Grid,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -24,7 +25,7 @@ export default function RegisterForm({ onSwitchToLogin }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -51,110 +52,117 @@ export default function RegisterForm({ onSwitchToLogin }) {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
-      sx={{
-        backgroundColor: "background.default",
-        px: 2,
-      }}
-    >
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        autoComplete="off"
-        sx={{
-          width: "100%",
-          maxWidth: 400,
-          p: 4,
-          boxShadow: 3,
-          borderRadius: 2,
-          backgroundColor: "background.paper",
-        }}
-      >
-        <Typography variant="h5" textAlign="center" mb={3} fontWeight="bold">
-          Create Your Account
-        </Typography>
-
-        <Stack spacing={3}>
-          <TextField
-            label="Username"
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            required
-            fullWidth
-            variant="outlined"
-            sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
-          />
-
-          <TextField
-            label="Email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            fullWidth
-            variant="outlined"
-            sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
-          />
-
-          <TextField
-            label="Password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            value={form.password}
-            onChange={handleChange}
-            required
-            fullWidth
-            variant="outlined"
-            sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    onClick={handleTogglePassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
+    <Grid container sx={{ minHeight: "100vh" }}>
+      {!isMobile && (
+        <Grid item xs={12} md={6}>
+          <Box
+            sx={{
+              height: "100%",
+              backgroundImage: "url('https://source.unsplash.com/featured/?ship,port')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           />
+        </Grid>
+      )}
 
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            size="large"
-            disabled={loading}
-            sx={{ borderRadius: 2, fontWeight: "bold" }}
-          >
-            {loading ? <CircularProgress size={24} color="inherit" /> : "Register"}
-          </Button>
-
-          {message && <Alert severity="success">{message}</Alert>}
-          {error && <Alert severity="error">{error}</Alert>}
-
-          <Typography textAlign="center" mt={1}>
-            Already have an account?{" "}
-            <Link
-              component="button"
-              variant="body2"
-              onClick={onSwitchToLogin}
-              sx={{ fontWeight: "bold" }}
-            >
-              Login here
-            </Link>
+      <Grid item xs={12} md={6} display="flex" alignItems="center" justifyContent="center">
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          noValidate
+          autoComplete="off"
+          sx={{
+            width: "100%",
+            maxWidth: 400,
+            p: 4,
+            boxShadow: 3,
+            borderRadius: 2,
+            backgroundColor: "background.paper",
+            mx: "auto",
+          }}
+        >
+          <Typography variant="h5" textAlign="center" mb={3} fontWeight="bold">
+            Create Your Account
           </Typography>
-        </Stack>
-      </Box>
-    </Box>
+
+          <Stack spacing={3}>
+            <TextField
+              label="Username"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              required
+              fullWidth
+              variant="outlined"
+              sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
+            />
+
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              fullWidth
+              variant="outlined"
+              sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
+            />
+
+            <TextField
+              label="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              value={form.password}
+              onChange={handleChange}
+              required
+              fullWidth
+              variant="outlined"
+              sx={{ "& .MuiInputBase-root": { borderRadius: 2 } }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      onClick={handleTogglePassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              size="large"
+              disabled={loading}
+              sx={{ borderRadius: 2, fontWeight: "bold" }}
+            >
+              {loading ? <CircularProgress size={24} color="inherit" /> : "Register"}
+            </Button>
+
+            {message && <Alert severity="success">{message}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
+
+            <Typography textAlign="center" mt={1}>
+              Already have an account?{" "}
+              <Link
+                component="button"
+                variant="body2"
+                onClick={onSwitchToLogin}
+                sx={{ fontWeight: "bold" }}
+              >
+                Login here
+              </Link>
+            </Typography>
+          </Stack>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
