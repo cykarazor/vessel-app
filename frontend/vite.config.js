@@ -3,12 +3,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // ▶️ This plugin automatically prunes unused MUI imports (especially the huge icons package)
-import muiOptimizer from 'vite-plugin-mui-optimizer';
+//import muiOptimizer from 'vite-plugin-mui-optimizer';
 
 export default defineConfig({
   plugins: [
     react(),
-    muiOptimizer(),             // ✅ Tree-shake MUI imports (icons, lab, etc.)
+    //muiOptimizer(),             // ✅ Tree-shake MUI imports (icons, lab, etc.)
   ],
   optimizeDeps: {
     // Make sure Vite doesn’t eagerly scan the entire icons-material directory
